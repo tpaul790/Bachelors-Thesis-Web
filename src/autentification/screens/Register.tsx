@@ -1,14 +1,57 @@
-import { Form, Input, Button } from "antd";
+import {Form, Input, Button, type FormProps, notification} from "antd";
 import "./auth.css";
 import "../../App.css"
 import {useNavigate} from "react-router-dom";
+import {useRegisterMutation} from "../api/authQueryApi.ts";
 
+
+type FieldType = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    username: string;
+    password: string;
+}
 
 export function Register() {
+    const [register, {isLoading}] = useRegisterMutation();
     const navigate = useNavigate();
+    const [form] = Form.useForm<FieldType>();
 
-    const onFinish = (values: never) => {
-        console.log("Form submitted:", values);
+    const onFinish: FormProps<FieldType>["onFinish"] = async values => {
+        const registerRequest = {
+            firstName: values.firstName,
+            lastName: values.lastName,
+            email: values.email,
+            username: values.username,
+            password: values.password,
+            iconNumber: 0
+        }
+
+        try{
+            await register(registerRequest);
+
+            form.resetFields();
+
+            notification.success({
+                message: "Login Error",
+                description: "Account successfully created",
+                placement: "top",
+                duration: 3,
+            });
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch(err: any){
+            const errorMessage =
+                err?.data?.error || err?.message || "An unknown error occurred";
+
+            notification.error({
+                message: "Login Error",
+                description: errorMessage,
+                placement: "top",
+                duration: 3,
+            });
+        }
     };
 
     return (
@@ -38,6 +81,7 @@ export function Register() {
                         layout="vertical"
                         onFinish={onFinish}
                         className="auth-form"
+                        form={form}
                     >
                         {/*first and last name*/}
                             <Form.Item
@@ -85,7 +129,12 @@ export function Register() {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button type="primary" htmlType="submit" className="submit-btn">
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                className="submit-btn"
+                                loading={isLoading}
+                            >
                                 Create account
                             </Button>
                         </Form.Item>

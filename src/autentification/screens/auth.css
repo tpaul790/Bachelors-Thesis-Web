@@ -19,7 +19,7 @@
 .auth-left {
     position: relative;
     flex: 1.5;
-    background: url("../../resources/images/auth/team.webp")
+    background: url("../images/team.webp")
     center/cover no-repeat;
     padding: 20px;
     display: flex;
