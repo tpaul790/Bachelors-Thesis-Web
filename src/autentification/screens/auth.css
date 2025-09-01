@@ -1,0 +1,98 @@
+
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    width: 90%;
+    max-width: 800px;
+    margin: 40px auto;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(11, 10, 10, 0.8);
+    background: #2b2738;
+    color: #fff;
+    border: 2px solid #4B5563;
+}
+
+/* Left panel */
+.auth-left {
+    position: relative;
+    flex: 1.5;
+    background: url("../../resources/images/auth/team.webp")
+    center/cover no-repeat;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #fff;
+}
+
+.auth-logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.auth-image-text {
+    position: absolute;
+    bottom: -10px;
+    margin-top: auto;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Right panel */
+.auth-right {
+    flex: 1;
+    background: #2D3748;
+    padding: 40px;
+}
+
+.auth-right h2 {
+    margin-bottom: 5px;
+    font-size: 30px;
+}
+
+.auth-right p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    color: #bbb;
+}
+
+.auth-right p a {
+    color: #3B82F6;
+    text-decoration: none;
+}
+
+/* Form */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.submit-btn {
+    width: 100%;
+    height: 40px;
+    font-size: 18px;
+    background: #3B82F6 !important;
+    border-radius: 6px !important;
+    border: none !important;
+}
+
+.submit-btn:hover {
+    background: #2563EB !important;
+}
+
+.auth-link{
+    background-color: transparent;
+    border: none;
+    font-size: 17px;
+    color: #3B82F6;
+}
+
+.auth-link:hover{
+    text-decoration: none;
+    background-color: transparent !important;
+    color: #2563EB !important;
+}
