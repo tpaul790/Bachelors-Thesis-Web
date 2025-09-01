@@ -1,14 +1,53 @@
-import { Form, Input, Button } from "antd";
+import {Form, Input, Button, type FormProps, notification} from "antd";
 import "./auth.css";
 import "../../App.css"
 import { useNavigate } from "react-router-dom";
+import type {LoginRequest, LoginResponse} from "../dto/AuthDtos.ts";
+import {useLoginMutation} from "../api/authQueryApi.ts";
+import {isAdmin} from "../../utils/functions/user.ts";
 
+type FieldType = {
+    username: string;
+    password: string;
+};
 
 export function Login() {
+    const [login, {isLoading}] = useLoginMutation();
     const navigate = useNavigate();
 
-    const onFinish = (values: never) => {
-        console.log("Form submitted:", values);
+    const onFinish: FormProps<FieldType>["onFinish"] = async values => {
+        const loginRequest: LoginRequest = {username: values.username, password: values.password};
+
+        try{
+            const loginResponse: LoginResponse = await login(loginRequest).unwrap();
+            const tokenDetails = JSON.parse(atob(loginResponse.token.split('.')[1]));
+
+            if(isAdmin(tokenDetails.role)){
+                navigate("/admin-dashboard");
+            }else{
+                navigate("/user-dashboard");
+            }
+
+            notification.success({
+                message: "Login Success",
+                description: "You are an " + tokenDetails.role,
+                placement: "top",
+                duration: 3,
+            })
+
+            localStorage.setItem("token", loginResponse.token);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch(err: any){
+            const errorMessage =
+                err?.data?.error || err?.message || "An unknown error occurred";
+
+            notification.error({
+                message: "Login Error",
+                description: errorMessage,
+                placement: "top",
+                duration: 3,
+            });
+        }
     };
 
 
@@ -58,7 +97,12 @@ export function Login() {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button type="primary" htmlType="submit" className="submit-btn">
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                className="submit-btn"
+                                loading={isLoading}
+                            >
                                 Log in
                             </Button>
                         </Form.Item>
