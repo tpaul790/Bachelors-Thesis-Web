@@ -5,7 +5,9 @@
     justify-content: center;
     align-items: stretch;
     width: 90%;
-    max-width: 800px;
+    max-width: 900px;
+    height: 90vh;
+    max-height: 600px;
     margin: 40px auto;
     border-radius: 30px;
     overflow: hidden;
@@ -43,6 +45,9 @@
 
 /* Right panel */
 .auth-right {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     flex: 1;
     background: #2D3748;
     padding: 40px;
