@@ -86,7 +86,10 @@ export function Register() {
                         {/*first and last name*/}
                             <Form.Item
                                 name="firstName"
-                                rules={[{ required: true, message: "Please enter your first name" }]}
+                                rules={[
+                                    { required: true, message: "Please enter your first name" },
+                                    { pattern: /^[A-Za-z]+$/, message: "Your name should only contain letters" },
+                                ]}
                                 style={{ flex: 1 }}
                             >
                                 <Input placeholder="First name" size="large" />
@@ -94,7 +97,10 @@ export function Register() {
 
                             <Form.Item
                                 name="lastName"
-                                rules={[{ required: true, message: "Please enter your last name" }]}
+                                rules={[
+                                    { required: true, message: "Please enter your last name" },
+                                    { pattern: /^[A-Za-z]+$/, message: "Your name should only contain letters" },
+                                ]}
                                 style={{ flex: 1 }}
                             >
                                 <Input placeholder="Last name" size="large"/>
@@ -114,7 +120,10 @@ export function Register() {
                         {/*username and password*/}
                         <Form.Item
                             name="username"
-                            rules={[{ required: true, message: "Please enter your username" }]}
+                            rules={[
+                                { required: true, message: "Please enter your username" },
+                                { min: 4, message: "Username should be at least 4 characters" },
+                            ]}
                             style={{ flex: 1 }}
                         >
                             <Input placeholder="Username" size="large"/>
@@ -122,7 +131,10 @@ export function Register() {
 
                         <Form.Item
                             name="password"
-                            rules={[{ required: true, message: "Please enter your password" }]}
+                            rules={[
+                                { required: true, message: "Please enter your password" },
+                                { min: 4, message: "Password should be at least 4 characters" },
+                            ]}
                             style={{ flex: 1 }}
                         >
                             <Input.Password placeholder="Password" size="large"/>

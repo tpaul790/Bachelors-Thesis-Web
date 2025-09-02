@@ -11,7 +11,7 @@
     margin: 40px auto;
     border-radius: 30px;
     overflow: hidden;
-    box-shadow: 0 10px 25px rgba(11, 10, 10, 0.8);
+    box-shadow: 0 0 25px rgba(55, 51, 51, 0.8);
     background: #2b2738;
     color: #fff;
     border: 2px solid #4B5563;
@@ -37,7 +37,7 @@
 
 .auth-image-text {
     position: absolute;
-    bottom: -10px;
+    bottom: 0;
     margin-top: auto;
     font-size: 18px;
     font-weight: 500;
