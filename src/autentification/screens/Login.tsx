@@ -28,13 +28,6 @@ export function Login() {
                 navigate("/user-dashboard");
             }
 
-            notification.success({
-                message: "Login Success",
-                description: "You are an " + tokenDetails.role,
-                placement: "top",
-                duration: 3,
-            })
-
             localStorage.setItem("token", loginResponse.token);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch(err: any){
@@ -84,6 +77,7 @@ export function Login() {
                             name="username"
                             rules={[{ required: true, message: "Please enter your username" }]}
                             style={{ flex: 1 }}
+                            className="auth-form-input"
                         >
                             <Input placeholder="Username" size={"large"}/>
                         </Form.Item>

@@ -21,5 +21,5 @@ export const getRoleFromToken = () => {
 export const getIdFromToken = () => {
     const token = localStorage.getItem("token");
     const tokenDetails = JSON.parse(atob(token!.split(".")[1]));
-    return tokenDetails.id;
+    return Number(tokenDetails.id);
 };

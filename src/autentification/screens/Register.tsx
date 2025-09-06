@@ -29,7 +29,7 @@ export function Register() {
         }
 
         try{
-            await register(registerRequest);
+            await register(registerRequest).unwrap();
 
             form.resetFields();
 
