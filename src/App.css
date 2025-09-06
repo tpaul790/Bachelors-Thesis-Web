@@ -5,3 +5,28 @@
     background-color: transparent;
     height: 100%;
 }
+
+.card {
+    box-shadow: 0 0 25px rgba(55, 51, 51, 0.8);
+    background: #2D3748;
+    color: #fff;
+    border: 2px solid #4B5563;
+}
+
+.dropdown .ant-dropdown-menu{
+    background-color: #2D3748 !important;
+    border: 2px solid #4B5563 !important;
+    box-shadow: 0 0 25px rgba(55, 51, 51, 0.8);
+    border-radius: 20px;
+}
+
+.dropdown .ant-dropdown-menu-item{
+    color: white !important;
+    font-weight: 500 !important;
+    font-size: 15px !important;
+    border-radius: 20px !important;
+}
+
+.dropdown .ant-dropdown-menu-item:hover{
+    background-color: #22252b !important;
+}
