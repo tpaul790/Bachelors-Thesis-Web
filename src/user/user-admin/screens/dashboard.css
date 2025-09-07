@@ -1,0 +1,41 @@
+.dashboard-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+.ant-layout{
+    background: transparent !important;
+}
+
+.dashboard-text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-text h2{
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.create-project-btn{
+    width: 150px;
+    height: 40px;
+    font-size: 18px;
+    background: #3B82F6 !important;
+    border-radius: 6px !important;
+    border: none !important;
+}
+
+.create-project-btn:hover {
+    background: #2563EB !important;
+}
+
+.create-project-modal{
+
+}

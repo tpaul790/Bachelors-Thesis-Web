@@ -4,7 +4,6 @@ import "../../App.css"
 import { useNavigate } from "react-router-dom";
 import type {LoginRequest, LoginResponse} from "../dto/AuthDtos.ts";
 import {useLoginMutation} from "../api/authQueryApi.ts";
-import {isAdmin} from "../../utils/functions/user.ts";
 
 type FieldType = {
     username: string;
@@ -20,13 +19,8 @@ export function Login() {
 
         try{
             const loginResponse: LoginResponse = await login(loginRequest).unwrap();
-            const tokenDetails = JSON.parse(atob(loginResponse.token.split('.')[1]));
 
-            if(isAdmin(tokenDetails.role)){
-                navigate("/admin-dashboard");
-            }else{
-                navigate("/user-dashboard");
-            }
+            navigate("/dashboard");
 
             localStorage.setItem("token", loginResponse.token);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

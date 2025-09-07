@@ -34,7 +34,7 @@ export function Register() {
             form.resetFields();
 
             notification.success({
-                message: "Login Error",
+                message: "Successfully Registered",
                 description: "Account successfully created",
                 placement: "top",
                 duration: 3,
@@ -46,7 +46,7 @@ export function Register() {
                 err?.data?.error || err?.message || "An unknown error occurred";
 
             notification.error({
-                message: "Login Error",
+                message: "Register Error",
                 description: errorMessage,
                 placement: "top",
                 duration: 3,

@@ -49,8 +49,8 @@ const Navbar = (props: IOwnProps) => {
                     {userRole === UserRole.ADMIN ? (
                         <>
                             <Link
-                                to="/admin-dashboard"
-                                className={location.pathname === "/admin-dashboard" ? "active-link" : ""}
+                                to="/dashboard"
+                                className={location.pathname === "/dashboard" ? "active-link" : ""}
                             >
                                 Dashboard
                             </Link>
@@ -70,8 +70,8 @@ const Navbar = (props: IOwnProps) => {
                     ) : (
                         <>
                             <Link
-                                to="/user-dashboard"
-                                className={location.pathname === "/user-dashboard" ? "active-link" : ""}
+                                to="/dashboard"
+                                className={location.pathname === "/dashboard" ? "active-link" : ""}
                             >
                                 Dashboard
                             </Link>
@@ -89,7 +89,7 @@ const Navbar = (props: IOwnProps) => {
                     menu={{ items: profileMenuItems }}
                     trigger={["click"]}
                     placement="bottomRight"
-                    dropdownRender={menu => (
+                    popupRender={menu => (
                         <div className="dropdown">
                             {menu}
                         </div>

@@ -1,0 +1,105 @@
+.admin-session-summary-card {
+    border-radius: 40px;
+    border: 1px solid rgba(240, 243, 255, 0.1);
+    background: rgba(240, 243, 255, 0.08);
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.475);
+    color: #fff;
+    padding: 10px 15px;
+    font-family: "Segoe UI", serif;
+}
+
+.admin-session-summary-row {
+    width: 100%;
+}
+
+.icon-deck {
+    position: relative;
+    padding-right: 5px;
+    top: 2px;
+}
+
+.admin-session-summary-title {
+    color: #fff !important;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100px;
+}
+
+.admin-session-summary-text {
+    color: #fff !important;
+}
+
+.admin-session-summary-tag {
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 13px;
+    margin: 0;
+}
+
+.in-progress-status {
+    background-color: #f3d721;
+}
+
+.completed-status {
+    background-color: greenyellow;
+}
+
+.viewer-voter-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.icon-viewer {
+    color: #ffdd57;
+}
+
+.icon-voter {
+    color: #57d4ff;
+}
+
+.icon-calendar {
+    color: #fff;
+}
+
+.icon-action {
+    color: #fff;
+    font-size: 18px;
+}
+
+.col-session-name,
+.col-viewer-voter,
+.col-date,
+.col-role,
+.col-action {
+    display: flex;
+    align-items: center;
+}
+
+.col-action {
+    font-size: 16px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.col-action:hover {
+    transform: scale(1.3);
+}
+
+.avatar-icon {
+    cursor: pointer;
+    position: relative;
+    background-color: white;
+}
+
+.avatar-extra-icon {
+    position: relative;
+    background-color: transparent;
+}
+
+.avatar-group {
+    display: flex;
+    align-items: center;
+}
