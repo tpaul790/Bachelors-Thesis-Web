@@ -66,8 +66,8 @@ const Navbar = (props: IOwnProps) => {
                                 Projects
                             </Link>
                             <Link
-                                to="/teams"
-                                className={location.pathname === "/teams" ? "active-link" : ""}
+                                to="/admin-teams"
+                                className={location.pathname === "/admin-teams" ? "active-link" : ""}
                             >
                                 Teams
                             </Link>
@@ -91,8 +91,8 @@ const Navbar = (props: IOwnProps) => {
                                 Dashboard
                             </Link>
                             <Link
-                                to="/teams"
-                                className={location.pathname === "/teams" ? "active-link" : ""}
+                                to="/user-teams"
+                                className={location.pathname === "/user-teams" ? "active-link" : ""}
                             >
                                 Teams
                             </Link>

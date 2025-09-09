@@ -1,15 +1,15 @@
 import {Form, type FormProps, Input, Modal, notification, Select, Button, Space} from "antd";
 import TextArea from "antd/es/input/TextArea";
-import type {CreateProjectDto} from "../../../project/dto/ProjectDto.ts";
-import {useSaveProjectMutation} from "../../../project/api/projectQueryApi.ts";
+import type {CreateProjectDto} from "../dto/ProjectDto.ts";
+import {useSaveProjectMutation} from "../api/projectQueryApi.ts";
 import {useState} from "react";
-import type {CreateTeamDto, TeamSummaryDto} from "../../../team/dto/TeamDto.ts";
-import {useDeleteTeamMutation, useSaveTeamMutation} from "../../../team/api/teamQueryApi.ts";
-import {useSaveMemberMutation} from "../../../member/api/memberQueryApi.ts";
-import {type CreateMemberDto, MemberRole} from "../../../member/dto/MemberDto.ts";
-import {useGetTeamsForUserQuery} from "../../api/userQueryApi.ts";
+import {useDeleteTeamMutation, useSaveTeamMutation} from "../../team/api/teamQueryApi.ts";
+import {useSaveMemberMutation} from "../../member/api/memberQueryApi.ts";
+import {useGetTeamsForUserQuery} from "../../user/api/userQueryApi.ts";
 import {skipToken} from "@reduxjs/toolkit/query";
 import "./createProjectModal.css"
+import {createTeam, removeTeam} from "../../team/utils/Functions.ts";
+import {addMember} from "../../member/utils/Functions.ts";
 
 
 interface IOwnProps {
@@ -32,7 +32,7 @@ export const CreateProjectModal = (props: IOwnProps) => {
     const [saveTeam] = useSaveTeamMutation();
     const [deleteTeam] = useDeleteTeamMutation();
     const [saveMember] = useSaveMemberMutation();
-    const { data: teams , refetch} = useGetTeamsForUserQuery(userId !== 0 ? userId : skipToken);
+    const { data: teams} = useGetTeamsForUserQuery(userId !== 0 ? userId : skipToken);
     const [isCreatingTeam, setIsCreatingTeam] = useState(false);
 
 
@@ -42,73 +42,12 @@ export const CreateProjectModal = (props: IOwnProps) => {
         setIsCreatingTeam(false);
     }
 
-    const createTeam = async (teamName: string)  => {
-        const team : CreateTeamDto = {
-            name: teamName,
-        }
-
-        try{
-            const result : TeamSummaryDto = await saveTeam(team).unwrap();
-            await refetch();
-            return result.id;
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch(err: any){
-            const errorMessage =
-                err?.data?.error || err?.message || "An unknown error occurred";
-            notification.error({
-                message: "Save Team Error",
-                description: errorMessage,
-                placement: "top",
-                duration: 3,
-            })
-        }
-    }
-
-    const removeTeam = async (id: number) => {
-        try{
-            await deleteTeam(id).unwrap();
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch(err: any){
-            const errorMessage =
-                err?.data?.error || err?.message || "An unknown error occurred";
-            notification.error({
-                message: "Delete Team Error",
-                description: errorMessage,
-                placement: "top",
-                duration: 3,
-            })
-        }
-    }
-
-    const addMember = async (teamId: number, userId: number) => {
-        const member : CreateMemberDto = {
-            userId,
-            teamId,
-            role: MemberRole.MANAGER,
-        }
-
-        try{
-            await saveMember(member);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch(err: any){
-            const errorMessage =
-                err?.data?.error || err?.message || "An unknown error occurred";
-            form.resetFields();
-            notification.error({
-                message: "Save Team Error",
-                description: errorMessage,
-                placement: "top",
-                duration: 3,
-            })
-        }
-    }
-
     const onFinish: FormProps<FieldType>["onFinish"] = async values => {
         let teamId;
         if(values.newTeamName){
-            teamId = await createTeam(values.newTeamName);
+            teamId = await createTeam(values.newTeamName, saveTeam);
             if(teamId && userId !== 0){
-                await addMember(teamId, userId);
+                await addMember(teamId, userId, saveMember);
             }
         }
 
@@ -140,7 +79,7 @@ export const CreateProjectModal = (props: IOwnProps) => {
                     duration: 3,
                 })
                 if (teamId) {
-                    await removeTeam(teamId);
+                    await removeTeam(teamId, deleteTeam);
                 }
             }
         }

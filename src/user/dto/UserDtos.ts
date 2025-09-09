@@ -25,3 +25,10 @@ export interface UserUpdateDto {
     username?: string;
     iconNumber?: number;
 }
+
+export interface UserSummaryDto{
+    id: number,
+    firstName: string,
+    lastName: string,
+    iconNumber: number,
+}

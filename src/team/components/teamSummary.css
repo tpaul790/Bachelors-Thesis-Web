@@ -1,0 +1,27 @@
+.col-manager-avatar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.col-manager-avatar .manager-avatar{
+    width: 70px;
+    height: 70px;
+    background-color: #001529;
+}
+
+.project-manager-names{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+}
+
+.col-actions{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}

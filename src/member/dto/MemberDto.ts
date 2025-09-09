@@ -1,5 +1,5 @@
-import type {UserDto} from "../../user/dto/UserDtos.ts";
-import type {TeamSummaryDto} from "../../team/dto/TeamDto.ts";
+import type {UserDto, UserSummaryDto} from "../../user/dto/UserDtos.ts";
+import type {TeamDto} from "../../team/dto/TeamDto.ts";
 
 export const MemberRole = {
     MANAGER: "MANAGER",
@@ -16,6 +16,12 @@ export interface CreateMemberDto {
 export interface MemberDto{
     id: number;
     user: UserDto;
-    team: TeamSummaryDto;
+    team: TeamDto;
+    role: MemberRole;
+}
+
+export interface MemberSummaryDto{
+    id: number;
+    user: UserSummaryDto;
     role: MemberRole;
 }

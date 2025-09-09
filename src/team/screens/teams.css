@@ -1,4 +1,4 @@
-.dashboard-content{
+.teams-content{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,20 +11,25 @@
     background: transparent !important;
 }
 
-.dashboard-text{
+.username-text{
+    color: #2563eb; /* blue-600 */
+    font-weight: bold;
+}
+
+.teams-text{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.dashboard-text h2{
+.teams-text h2{
     color: white;
     font-size: 2rem;
     font-weight: bold;
 }
 
-.dashboard-projects{
+.teams-list{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,7 +37,7 @@
     gap: 10px;
 }
 
-.admin-dashboard-projects-header-row {
+.teams-header-row {
     background-color: transparent;
     color: white;
     border-bottom: 1px solid #ddd;

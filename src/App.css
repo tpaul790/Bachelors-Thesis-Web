@@ -66,3 +66,77 @@
 .my-modal-footer button:last-child span {
     color: white;
 }
+
+/*Buttons*/
+.create-btn{
+    width: 150px;
+    height: 40px;
+    font-size: 18px;
+    background: #3B82F6 !important;
+    border-radius: 6px !important;
+    border: none !important;
+}
+
+.create-btn:hover {
+    background: #2563EB !important;
+}
+
+/*Card*/
+.summary-card {
+    border-radius: 40px;
+    border: 1px solid rgba(240, 243, 255, 0.1);
+    background: rgba(240, 243, 255, 0.08);
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.35);
+    color: #fff;
+    padding: 10px 15px;
+    font-family: "Segoe UI", serif;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+}
+
+.hoverable-card:hover{
+    cursor: pointer;
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.67);
+    transform: scale(1.05, 1.1);
+}
+
+.summary-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.summary-title {
+    color: #fff !important;
+    font-size: 20px !important;
+    margin: 0 !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: auto;
+}
+
+.summary-text{
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 18px !important;
+}
+
+
+
+/*Pagination*/
+
+.pagination-buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+    color: white;
+}
+
+.pagination-buttons span.anticon{
+    color: white !important;
+}

@@ -57,31 +57,31 @@ export const ProjectSummary = (props: IOwnProps) => {
 
     return (
         <>
-            <Content className="admin-session-summary-content">
-                <Card className="admin-session-summary-card">
-                    <Row align="middle" className="admin-session-summary-row">
-                        <Col className="col-session-name" flex="150px">
-                            <Title level={5} className="admin-session-summary-title">
+            <Content className="summary-content">
+                <Card className="summary-card hoverable-card">
+                    <Row align="middle" className="summary-row">
+                        <Col className="col-session-name" flex="180px">
+                            <Title level={5} className="summary-title">
                                 {name}
                             </Title>
                         </Col>
 
-                        <Col className="col-date" flex="220px">
+                        <Col className="col-date" flex="180px">
                             <Space size="small">
                                 <CalendarOutlined className="icon-calendar" />
-                                <Text className="admin-session-summary-text">
+                                <Text className="summary-text">
                                     {createdAt ? getDaysAgo(new Date(createdAt)) : "Not specified"}
                                 </Text>
                             </Space>
                         </Col>
 
                         <Col className="col-session-name" flex="150px">
-                            <Title level={5} className="admin-session-summary-title">
+                            <Title level={5} className="summary-title">
                                 {teamName}
                             </Title>
                         </Col>
 
-                        <Col className="col-participants" flex="250px">
+                        <Col className="col-participants" flex="200px">
                             <Content className="avatar-group">
                                 {visibleParticipants.map((icon, index) => (
                                     <Avatar
@@ -90,9 +90,6 @@ export const ProjectSummary = (props: IOwnProps) => {
                                         size="large"
                                         src={getAvatarByIconNumber(icon)}
                                         style={{
-                                            backgroundColor: getAvatarByIconNumber(icon)
-                                                ? undefined
-                                                : "#7265e6",
                                             zIndex: icons.length - index,
                                             marginLeft: index === 0 ? 0 : -8
                                         }}
