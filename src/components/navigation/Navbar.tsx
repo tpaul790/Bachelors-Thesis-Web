@@ -6,15 +6,16 @@ import "../../App.css"
 import { getRoleFromToken } from "../../utils/functions/token.ts";
 import { UserRole } from "../../user/dto/UserDtos.ts";
 import { getAvatarByIconNumber } from "../../utils/functions/user.ts";
-
+import { MailOutlined } from "@ant-design/icons";
 const { Header } = Layout;
 
 interface IOwnProps {
     iconNumber: number;
+    invitationNumber: number;
 }
 
 const Navbar = (props: IOwnProps) => {
-    const { iconNumber } = props;
+    const { iconNumber, invitationNumber } = props;
     const navigate = useNavigate();
     const location = useLocation();
     const userRole = getRoleFromToken();
@@ -38,8 +39,6 @@ const Navbar = (props: IOwnProps) => {
         },
     ];
 
-    console.log(location.pathname);
-
     return (
         <Header className="navbar-header">
             <div className="navbar-logo">Synergy</div>
@@ -49,8 +48,8 @@ const Navbar = (props: IOwnProps) => {
                     {userRole === UserRole.ADMIN ? (
                         <>
                             <Link
-                                to="/admin-dashboard"
-                                className={location.pathname === "/admin-dashboard" ? "active-link" : ""}
+                                to="/dashboard"
+                                className={location.pathname === "/dashboard" ? "active-link" : ""}
                             >
                                 Dashboard
                             </Link>
@@ -66,12 +65,28 @@ const Navbar = (props: IOwnProps) => {
                             >
                                 Projects
                             </Link>
+                            <Link
+                                to="/teams"
+                                className={location.pathname === "/teams" ? "active-link" : ""}
+                            >
+                                Teams
+                            </Link>
+                            <Link
+                                to="/invitations"
+                                className={location.pathname === "/invitations" ? "active-link" : ""}
+                            >
+                                <div className="invitation-icon-content">
+                                    <MailOutlined style={{ fontSize: "20px" }} />
+                                    {invitationNumber > 0 && <div className="invitation-icon-number">{invitationNumber}</div>}
+                                </div>
+                            </Link>
+
                         </>
                     ) : (
                         <>
                             <Link
-                                to="/user-dashboard"
-                                className={location.pathname === "/user-dashboard" ? "active-link" : ""}
+                                to="/dashboard"
+                                className={location.pathname === "/dashboard" ? "active-link" : ""}
                             >
                                 Dashboard
                             </Link>
@@ -81,6 +96,15 @@ const Navbar = (props: IOwnProps) => {
                             >
                                 Teams
                             </Link>
+                            <Link
+                                to="/invitations"
+                                className={location.pathname === "/invitations" ? "active-link" : ""}
+                            >
+                                <div className="invitation-icon-content">
+                                    <MailOutlined style={{ fontSize: "20px" }} />
+                                    {invitationNumber > 0 && <div className="invitation-icon-number">{invitationNumber}</div>}
+                                </div>
+                            </Link>
                         </>
                     )}
                 </div>
@@ -89,7 +113,7 @@ const Navbar = (props: IOwnProps) => {
                     menu={{ items: profileMenuItems }}
                     trigger={["click"]}
                     placement="bottomRight"
-                    dropdownRender={menu => (
+                    popupRender={menu => (
                         <div className="dropdown">
                             {menu}
                         </div>

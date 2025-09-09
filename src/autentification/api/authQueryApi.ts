@@ -15,7 +15,7 @@ const authQueryApi = apiSlice.injectEndpoints({
             query: (request: RegisterRequest) => ({
                 url: "/register",
                 method: "POST",
-                body:request
+                body: request
             }),
             invalidatesTags: []
         }),

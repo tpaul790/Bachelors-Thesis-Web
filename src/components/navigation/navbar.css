@@ -19,12 +19,12 @@
 .navbar-right {
     display: flex;
     align-items: center;
-    gap: 20px; /* spațiu între linkuri și avatar */
+    gap: 25px;
 }
 
 .navbar-links {
     display: flex;
-    gap: 20px;
+    gap: 25px;
     align-items: center;
 }
 
@@ -51,6 +51,7 @@
 .navbar-avatar {
     cursor: pointer;
     border: 2px solid rgba(151, 146, 146, 0.83);
+    margin-bottom: 3px;
     transition: border 0.5s !important;
 }
 
@@ -86,3 +87,25 @@
     width: 100%;
 }
 
+.invitation-icon-content {
+    position: relative;
+    display: inline-block;
+}
+
+.invitation-icon-number {
+    position: absolute;
+    top: 12px;        /* move up */
+    right: -12px;      /* move right */
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

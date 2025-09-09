@@ -1,0 +1,72 @@
+.admin-session-summary-card {
+    border-radius: 40px;
+    border: 1px solid rgba(240, 243, 255, 0.1);
+    background: rgba(240, 243, 255, 0.08);
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.35);
+    color: #fff;
+    padding: 10px 15px;
+    font-family: "Segoe UI", serif;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+}
+
+.admin-session-summary-card:hover{
+    cursor: pointer;
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.67);
+    transform: scale(1.1);
+}
+
+.admin-session-summary-row {
+    width: 100%;
+}
+
+.admin-session-summary-title {
+    color: #fff !important;
+    font-size: 20px !important;
+    margin: 0 !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100px;
+}
+
+.admin-session-summary-text {
+    font-size: 20px !important;
+    color: #fff !important;
+}
+
+.icon-calendar {
+    transform: scale(1.5);
+    color: #fff;
+}
+
+.icon-action {
+    color: #fff;
+    font-size: 18px;
+}
+
+.col-action {
+    transform: scale(1.5);
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.col-action:hover {
+    transform: scale(1.8);
+}
+
+.avatar-icon {
+    cursor: pointer;
+    position: relative;
+    background-color: #001529;
+}
+
+.avatar-extra-icon {
+    position: relative;
+    background-color: transparent;
+}
+
+.avatar-group {
+    display: flex;
+    align-items: center;
+}
