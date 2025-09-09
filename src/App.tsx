@@ -6,6 +6,7 @@ import { Dashboard} from "./user/user-admin/screens/Dashboard.tsx";
 import {Profile} from "./user/user-admin/screens/Profile.tsx";
 import ProtectedRoute from "./security/ProtectedRoute.tsx";
 import {UserRole} from "./user/dto/UserDtos.ts";
+import {UserTeams} from "./team/screens/UserTeams.tsx";
 
 function App() {
 
@@ -14,13 +15,23 @@ function App() {
         <Router>
             <Routes>
                 <Route path="/" element={<Login />} />
+
                 <Route path="/register" element={<Register />} />
+
                 <Route path="/dashboard" element={
                     <ProtectedRoute
                         userRoles={[UserRole.USER, UserRole.ADMIN]}
                         child={<Dashboard/>}
                     />}
                 />
+
+                <Route path="/user-teams" element={
+                    <ProtectedRoute
+                        userRoles={[UserRole.USER]}
+                        child={<UserTeams/>}
+                    />}
+                />
+
                 <Route path="/profile" element={
                     <ProtectedRoute
                         userRoles={[UserRole.ADMIN, UserRole.USER]}

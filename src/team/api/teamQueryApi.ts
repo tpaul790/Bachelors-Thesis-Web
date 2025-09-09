@@ -1,10 +1,10 @@
 import {apiSlice} from "../../api/apiSlice.ts";
-import type {CreateTeamDto, TeamSummaryDto} from "../dto/TeamDto.ts";
+import type {CreateTeamDto, TeamDto} from "../dto/TeamDto.ts";
 import {teamUrl} from "../../utils/constants.ts";
 
 const teamQueryApi = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        saveTeam: builder.mutation<TeamSummaryDto, CreateTeamDto>({
+        saveTeam: builder.mutation<TeamDto, CreateTeamDto>({
             query: (request: CreateTeamDto) => ({
                 url: `${teamUrl}`,
                 method: "POST",
@@ -17,7 +17,7 @@ const teamQueryApi = apiSlice.injectEndpoints({
                 url: `${teamUrl}/${id}`,
                 method: "DELETE",
             }),
-            invalidatesTags: []
+            invalidatesTags: ["teams_summary"]
         }),
     })
 })

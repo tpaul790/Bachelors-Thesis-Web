@@ -10,9 +10,16 @@ const memberQueryApi = apiSlice.injectEndpoints({
                 method: "POST",
                 body: request
             }),
-            invalidatesTags: ["teams"]
+            invalidatesTags: ["teams","teams_summary"]
+        }),
+        deleteMember: builder.mutation<void, number>({
+            query: (id: number) => ({
+                url: `${memberUrl}/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["teams","teams_summary"]
         }),
     }),
 })
 
-export const { useSaveMemberMutation } = memberQueryApi
+export const { useSaveMemberMutation, useDeleteMemberMutation } = memberQueryApi

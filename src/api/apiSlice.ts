@@ -21,5 +21,6 @@ export const apiSlice = createApi({
         "members",
         "projects",
         "teams",
+        "teams_summary",
     ]
 });
