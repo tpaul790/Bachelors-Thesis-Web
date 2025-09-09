@@ -48,13 +48,14 @@
     color: white;
 }
 
+
 .my-modal-header {
     background-color: transparent !important;
 }
 
 .my-modal-content div.ant-modal-title{
     color: white !important;
-    font-weight: 500 !important;
+    font-weight: bold !important;
     font-size: 20px !important;
 }
 

@@ -61,7 +61,7 @@ export const Profile = () => {
     };
     return (
         <Layout className="flex-container">
-            <Navbar iconNumber={user?.iconNumber ?? 0} />
+            <Navbar iconNumber={user?.iconNumber ?? 0} invitationNumber={1} />
 
             <div className="body-profile-user">
                 {!user ? (

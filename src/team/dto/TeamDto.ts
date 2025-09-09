@@ -1,4 +1,9 @@
-export interface TeamDto {
+export interface CreateTeamDto {
+    name: string;
+}
+
+export interface TeamSummaryDto {
+    id: number;
     name: string;
 }
 

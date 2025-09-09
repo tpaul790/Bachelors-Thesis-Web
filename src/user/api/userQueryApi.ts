@@ -1,7 +1,8 @@
 import {apiSlice} from "../../api/apiSlice.ts";
 import type {UserDto, UserUpdateDto} from "../dto/UserDtos.ts";
-import {projectUrl, userUrl} from "../../utils/constants.ts";
+import {projectUrl, teamUrl, userUrl} from "../../utils/constants.ts";
 import type { ProjectSummaryDto} from "../../project/dto/ProjectDto.ts";
+import type {TeamSummaryDto} from "../../team/dto/TeamDto.ts";
 
 const userQueryApi = apiSlice.injectEndpoints({
     endpoints: builder => ({
@@ -26,8 +27,20 @@ const userQueryApi = apiSlice.injectEndpoints({
                 method: "GET",
             }),
             providesTags: ["projects"]
+        }),
+        getTeamsForUser: builder.query<TeamSummaryDto[], number>({
+            query: (id: number) => ({
+                url: `${userUrl}/${id}/${teamUrl}`,
+                method: "GET"
+            }),
+            providesTags: ["teams"]
         })
     })
 });
 
-export const { useUpdateUserMutation, useLazyGetUserByIdQuery, useGetProjectsForUserQuery } = userQueryApi;
+export const {
+    useUpdateUserMutation,
+    useLazyGetUserByIdQuery,
+    useGetProjectsForUserQuery,
+    useGetTeamsForUserQuery,
+} = userQueryApi;

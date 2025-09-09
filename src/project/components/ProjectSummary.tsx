@@ -1,5 +1,5 @@
 import {Content} from "antd/es/layout/layout";
-import {Avatar, Card, Col, Popconfirm, Row, Space, Typography} from "antd";
+import {Avatar, Card, Col, notification, Popconfirm, Row, Space, Typography} from "antd";
 import type {ProjectSummaryDto} from "../dto/ProjectDto.ts";
 import {
     CalendarOutlined,
@@ -8,6 +8,8 @@ import {
 import {getDaysAgo} from "../../utils/functions/date.ts";
 import {getAvatarByIconNumber} from "../../utils/functions/user.ts";
 const { Title, Text } = Typography;
+import "./projectSummary.css"
+import {useDeleteProjectMutation} from "../api/projectQueryApi.ts";
 
 const MAX_VISIBLE_PARTICIPANTS = 4;
 
@@ -16,6 +18,7 @@ interface IOwnProps{
 }
 
 export const ProjectSummary = (props: IOwnProps) => {
+    const [deleteProject] = useDeleteProjectMutation();
     const {project} = props;
     const {
         id: projectId,
@@ -23,7 +26,7 @@ export const ProjectSummary = (props: IOwnProps) => {
         createdAt,
         team
     } = project;
-    const icons = team ? team.icons : [];
+    const { icons, name: teamName}  = team;
     const hasIcons = icons !== undefined;
     const visibleParticipants = hasIcons
         ? icons.slice(0, MAX_VISIBLE_PARTICIPANTS)
@@ -32,10 +35,23 @@ export const ProjectSummary = (props: IOwnProps) => {
 
     const handleDeleteProject = async (id: number) => {
         try {
-            // await deleteProject(id).unwrap();
-            console.log(id);
-        } catch (e) {
-            console.error("Error while deleting the session: ", e);
+            await deleteProject(id).unwrap();
+            notification.success({
+                message: "Successfully Delete",
+                description: "Project successfully removed",
+                placement: "top",
+                duration: 3,
+            });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch(err: any){
+            const errorMessage =
+                err?.data?.error || err?.message || "An unknown error occurred";
+            notification.error({
+                message: "Delete Project Error",
+                description: errorMessage,
+                placement: "top",
+                duration: 3,
+            })
         }
     };
 
@@ -44,28 +60,34 @@ export const ProjectSummary = (props: IOwnProps) => {
             <Content className="admin-session-summary-content">
                 <Card className="admin-session-summary-card">
                     <Row align="middle" className="admin-session-summary-row">
-                        <Col className="col-session-name" flex="130px">
+                        <Col className="col-session-name" flex="150px">
                             <Title level={5} className="admin-session-summary-title">
                                 {name}
                             </Title>
                         </Col>
 
-                        <Col className="col-date" flex="120px">
+                        <Col className="col-date" flex="220px">
                             <Space size="small">
                                 <CalendarOutlined className="icon-calendar" />
                                 <Text className="admin-session-summary-text">
-                                    {createdAt ?? getDaysAgo(new Date(createdAt))}
+                                    {createdAt ? getDaysAgo(new Date(createdAt)) : "Not specified"}
                                 </Text>
                             </Space>
                         </Col>
 
-                        <Col className="col-participants" flex="120px">
+                        <Col className="col-session-name" flex="150px">
+                            <Title level={5} className="admin-session-summary-title">
+                                {teamName}
+                            </Title>
+                        </Col>
+
+                        <Col className="col-participants" flex="250px">
                             <Content className="avatar-group">
                                 {visibleParticipants.map((icon, index) => (
                                     <Avatar
                                         key={index}
                                         className="avatar-icon"
-                                        size="small"
+                                        size="large"
                                         src={getAvatarByIconNumber(icon)}
                                         style={{
                                             backgroundColor: getAvatarByIconNumber(icon)
@@ -77,7 +99,7 @@ export const ProjectSummary = (props: IOwnProps) => {
                                     ></Avatar>
                                 ))}
                                 {extraCount > 0 && (
-                                    <Avatar size="small" className="avatar-extra-icon">
+                                    <Avatar size="large" className="avatar-extra-icon">
                                         +{extraCount}
                                     </Avatar>
                                 )}

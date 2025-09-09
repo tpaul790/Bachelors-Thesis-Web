@@ -10,13 +10,14 @@ const projectQueryApi = apiSlice.injectEndpoints({
                 method: "POST",
                 body: request
             }),
-            invalidatesTags: ["teams"]
+            invalidatesTags: ["projects"]
         }),
         deleteProject: builder.mutation<void, number>({
             query: (id: number) => ({
                 url: `${projectUrl}/${id}`,
                 method: "DELETE",
-            })
+            }),
+            invalidatesTags: ["projects"]
         })
     })
 })

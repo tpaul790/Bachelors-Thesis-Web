@@ -1,0 +1,13 @@
+.select-team-list .ant-select-selection-placeholder {
+    color: #bfbfbf !important;
+    font-weight: 0 !important;
+}
+
+/* Selected value text should be black */
+.select-team-list .ant-select-selection-item {
+    color: black !important;
+}
+
+.select-team-list .ant-select-arrow span{
+    color: black !important;
+}
