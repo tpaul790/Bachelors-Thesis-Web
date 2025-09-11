@@ -11,11 +11,6 @@
     background: transparent !important;
 }
 
-.username-text{
-    color: #2563eb; /* blue-600 */
-    font-weight: bold;
-}
-
 .teams-text{
     display: flex;
     flex-direction: column;

@@ -48,12 +48,27 @@
     border: 2px solid #1890ff !important;
 }
 
+.navbar-avatar-container{
+    height: 100% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .navbar-avatar {
     cursor: pointer;
     border: 2px solid rgba(151, 146, 146, 0.83);
-    margin-bottom: 3px;
     transition: border 0.5s !important;
+
+    /* stretch to header height */
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
+
 
 .navbar-avatar:hover {
     border: 2px solid #1890ff !important;
@@ -94,8 +109,8 @@
 
 .invitation-icon-number {
     position: absolute;
-    top: 12px;        /* move up */
-    right: -12px;      /* move right */
+    right: -12px;
+    top: 12px;
     background: red;
     color: white;
     border-radius: 50%;
@@ -108,4 +123,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.dropdown-link{
+    font-size: 17px;
+}
+
+.active-dropdown-element,
+.active-dropdown-element .anticon {
+    color: #1890ff !important;
+}
+
+.dropdown-menu-icon{
+    margin-right: 10px;
+    font-size: 18px !important;
 }

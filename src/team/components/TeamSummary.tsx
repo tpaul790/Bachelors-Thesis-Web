@@ -48,6 +48,10 @@ export const TeamSummary = (props: IOwnProps) => {
         }
     }
 
+    const isAdminPage = () => {
+        return location.pathname === "/admin-teams";
+    }
+
     return (
         <>
             <Content className="summary-content">
@@ -115,13 +119,8 @@ export const TeamSummary = (props: IOwnProps) => {
                                 </Content>
                             )}
                         </Col>
-
-                        <Col className={manager?.user.id === userId ? "col-actions" : "flex-container" } flex="60px">
-                            {manager?.user.id === userId ?
-                                (<>
-                                    <Col className="col-action">
-                                        <UserAddOutlined className="icon-action" />
-                                    </Col>
+                            {isAdminPage() ? (
+                                <Col className="flex-container">
                                     <Popconfirm
                                         title="Are you sure you want to delete this team?"
                                         onConfirm={() => handleDeleteTeam()}
@@ -133,19 +132,41 @@ export const TeamSummary = (props: IOwnProps) => {
                                             <DeleteOutlined className="icon-action" />
                                         </Col>
                                     </Popconfirm>
-                                </>) :
-                                (<Popconfirm
-                                    title="Are you sure you want to leave this team?"
-                                    onConfirm={() => handleLeaveTeam()}
-                                    okText="Yes"
-                                    cancelText="No"
-                                    okButtonProps={{ danger: true }}
-                                >
-                                    <Col className="col-action" flex="20px">
-                                        <LogoutOutlined className="icon-action" />
-                                    </Col>
-                                </Popconfirm>)}
-                        </Col>
+                                </Col>
+                            ) : (
+                                <Col className={manager?.user.id === userId ? "col-actions" : "flex-container" } flex="60px">
+                                    {manager?.user.id === userId ?
+                                        (<>
+                                            <Col className="col-action">
+                                                <UserAddOutlined className="icon-action" />
+                                            </Col>
+                                            <Popconfirm
+                                                title="Are you sure you want to delete this team?"
+                                                onConfirm={() => handleDeleteTeam()}
+                                                okText="Yes"
+                                                cancelText="No"
+                                                okButtonProps={{ danger: true }}
+                                            >
+                                                <Col className="col-action" flex="20px">
+                                                    <DeleteOutlined className="icon-action" />
+                                                </Col>
+                                            </Popconfirm>
+                                        </>) :
+                                        (<Popconfirm
+                                            title="Are you sure you want to leave this team?"
+                                            onConfirm={() => handleLeaveTeam()}
+                                            okText="Yes"
+                                            cancelText="No"
+                                            okButtonProps={{ danger: true }}
+                                        >
+                                            <Col className="col-action" flex="20px">
+                                                <LogoutOutlined className="icon-action" />
+                                            </Col>
+                                        </Popconfirm>)
+                                    }
+                                </Col>
+                                )
+                            }
                     </Row>
                 </Card>
             </Content>

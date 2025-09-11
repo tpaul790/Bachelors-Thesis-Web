@@ -1,21 +1,17 @@
-import {Button, Layout, Pagination, Spin} from "antd";
-import Navbar from "../../components/navigation/Navbar.tsx";
-import {Content} from "antd/es/layout/layout";
 import {useSelector} from "react-redux";
 import type {RootState} from "../../api/store.ts";
-import {TeamSummary} from "../components/TeamSummary.tsx";
-import { useGetTeamsSummaryForUserQuery} from "../../user/api/userQueryApi.ts";
-import {skipToken} from "@reduxjs/toolkit/query";
-import "./teams.css"
 import {useState} from "react";
-import {CreateTeamModal} from "../components/CreateTeamModal.tsx";
+import {  Layout, Pagination, Spin} from "antd";
+import Navbar from "../../components/navigation/Navbar.tsx";
+import {Content} from "antd/es/layout/layout";
+import {TeamSummary} from "../components/TeamSummary.tsx";
 import {TeamsHeader} from "../components/TeamsHeader.tsx";
+import {useFindAllTeamsQuery} from "../api/teamQueryApi.ts";
 
-export const UserTeams = () => {
+export const AdminTeams = () => {
     const user = useSelector((state: RootState) => state.loggedUser.user);
     //TODO - make this method paginated
-    const { data: teams, isLoading } = useGetTeamsSummaryForUserQuery(user ? user.id : skipToken);
-    const [ createTeamModalOpen, setCreateTeamModalOpen ] = useState<boolean>(false);
+    const { data: teams, isLoading } = useFindAllTeamsQuery();
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(4);
 
@@ -24,14 +20,7 @@ export const UserTeams = () => {
             <Navbar iconNumber={user?.iconNumber ?? 0} invitationNumber={2} />
             <Content className="teams-content">
                 <div className="teams-text">
-                    <h2>Here is an overview of <span className="highlight-text">{user?.username}'s</span> teams</h2>
-                    <Button
-                        type="primary"
-                        className="create-btn"
-                        onClick={() => setCreateTeamModalOpen(true)}
-                    >
-                        Create Team
-                    </Button>
+                    <h2>Here is an overview of <span className = "highlight-text">all the existing teams</span></h2>
                 </div>
                 {isLoading ? (
                     <div className="loading-spinner">
@@ -53,9 +42,6 @@ export const UserTeams = () => {
                     </div>)
                 }
             </Content>
-
-            <CreateTeamModal userId={user ? user.id : 0} isOpen={createTeamModalOpen} setIsOpen={setCreateTeamModalOpen} />
-
         </Layout>
     )
 }
