@@ -1,5 +1,5 @@
 import { Avatar, Dropdown, Layout } from "antd";
-import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
+import { UserOutlined, LogoutOutlined, TeamOutlined, StockOutlined } from "@ant-design/icons";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./navbar.css";
 import "../../App.css"
@@ -28,16 +28,46 @@ const Navbar = (props: IOwnProps) => {
     const profileMenuItems = [
         {
             key: "view-profile",
-            icon: <UserOutlined />,
-            label: <Link to="/profile">View Profile</Link>,
+            label: <Link
+                to="/profile"
+                className= {(location.pathname === "/profile" ? "active-dropdown-element " : "") + "dropdown-link"}
+            >
+                <UserOutlined className="dropdown-menu-icon"/>
+                View Profile
+            </Link>,
         },
         {
             key: "logout",
-            icon: <LogoutOutlined />,
+            icon: <LogoutOutlined className="dropdown-menu-icon"/>,
             label: "Logout",
             onClick: handleLogout,
         },
     ];
+
+
+    const teamsMenuItems = [
+        {
+            key: "view-my-team",
+            label: <Link
+                to="/teams"
+                className= {(location.pathname === "/teams" ? "active-dropdown-element " : "") + "dropdown-link"}
+            >
+                <TeamOutlined className="dropdown-menu-icon"/>
+                My Teams
+            </Link>,
+        },
+        {
+            key: "view-all-teams",
+            label: <Link
+                to="/admin-teams"
+                className= {(location.pathname === "/admin-teams" ? "active-dropdown-element " : "") + "dropdown-link"}
+            >
+                <StockOutlined className="dropdown-menu-icon"/>
+                All Teams
+            </Link>,
+            className: location.pathname === "/admin-teams" ? "active-dropdown-element" : "",
+        }
+    ]
 
     return (
         <Header className="navbar-header">
@@ -65,12 +95,23 @@ const Navbar = (props: IOwnProps) => {
                             >
                                 Projects
                             </Link>
-                            <Link
-                                to="/admin-teams"
-                                className={location.pathname === "/admin-teams" ? "active-link" : ""}
+                            <Dropdown
+                                menu={{ items: teamsMenuItems }}
+                                trigger={["click"]}
+                                placement="bottomRight"
+                                popupRender={menu => (
+                                    <div className="dropdown">
+                                        {menu}
+                                    </div>
+                                )}
                             >
-                                Teams
-                            </Link>
+                                <Link
+                                    to={""}
+                                    className={location.pathname === "/teams" || location.pathname === "/admin-teams" ? "active-link" : ""}
+                                >
+                                    Teams
+                                </Link>
+                            </Dropdown>
                             <Link
                                 to="/invitations"
                                 className={location.pathname === "/invitations" ? "active-link" : ""}
@@ -92,7 +133,7 @@ const Navbar = (props: IOwnProps) => {
                             </Link>
                             <Link
                                 to="/user-teams"
-                                className={location.pathname === "/user-teams" ? "active-link" : ""}
+                                className={location.pathname === "/teams" ? "active-link" : ""}
                             >
                                 Teams
                             </Link>
@@ -119,13 +160,15 @@ const Navbar = (props: IOwnProps) => {
                         </div>
                     )}
                 >
-                    <Avatar
-                        size="large"
-                        src={getAvatarByIconNumber(iconNumber)}
-                        className={"navbar-avatar" + (location.pathname === "/profile" ? " active-logo" : "")}
-                    >
-                        U
-                    </Avatar>
+                    <div className="navbar-avatar-container">
+                        <Avatar
+                            size="large"
+                            src={getAvatarByIconNumber(iconNumber)}
+                            className={(location.pathname === "/profile" ? " active-logo " : "") + "navbar-avatar"}
+                        >
+                            U
+                        </Avatar>
+                    </div>
                 </Dropdown>
 
             </div>

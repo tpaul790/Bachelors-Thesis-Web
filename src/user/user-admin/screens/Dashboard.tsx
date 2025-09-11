@@ -26,7 +26,7 @@ export const Dashboard = () => {
             <Navbar iconNumber={user?.iconNumber ?? 0} invitationNumber={2} />
             <Content className="dashboard-content">
                 <div className="dashboard-text">
-                    <h2>Welcome back, <span className="username-text">{user?.username}</span></h2>
+                    <h2>Welcome back, <span className="highlight-text">{user?.username}</span></h2>
                     <Button
                         type="primary"
                         className="create-btn"

@@ -1,5 +1,5 @@
 import {apiSlice} from "../../api/apiSlice.ts";
-import type {CreateTeamDto, TeamDto} from "../dto/TeamDto.ts";
+import type {CreateTeamDto, TeamDto, TeamSummaryDto} from "../dto/TeamDto.ts";
 import {teamUrl} from "../../utils/constants.ts";
 
 const teamQueryApi = apiSlice.injectEndpoints({
@@ -19,8 +19,14 @@ const teamQueryApi = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ["teams_summary"]
         }),
+        findAllTeams: builder.query<TeamSummaryDto[], void>({
+            query: () => ({
+                url: teamUrl,
+                method: "GET"
+            })
+        })
     })
 })
 
-export const { useSaveTeamMutation, useDeleteTeamMutation } = teamQueryApi;
+export const { useSaveTeamMutation, useDeleteTeamMutation, useFindAllTeamsQuery } = teamQueryApi;
 

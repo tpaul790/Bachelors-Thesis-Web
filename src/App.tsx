@@ -7,6 +7,7 @@ import {Profile} from "./user/user-admin/screens/Profile.tsx";
 import ProtectedRoute from "./security/ProtectedRoute.tsx";
 import {UserRole} from "./user/dto/UserDtos.ts";
 import {UserTeams} from "./team/screens/UserTeams.tsx";
+import {AdminTeams} from "./team/screens/AdminTeams.tsx";
 
 function App() {
 
@@ -25,10 +26,17 @@ function App() {
                     />}
                 />
 
-                <Route path="/user-teams" element={
+                <Route path="/teams" element={
                     <ProtectedRoute
-                        userRoles={[UserRole.USER]}
+                        userRoles={[UserRole.USER, UserRole.ADMIN]}
                         child={<UserTeams/>}
+                    />}
+                />
+
+                <Route path="/admin-teams" element={
+                    <ProtectedRoute
+                        userRoles={[UserRole.ADMIN]}
+                        child={<AdminTeams/>}
                     />}
                 />
 
