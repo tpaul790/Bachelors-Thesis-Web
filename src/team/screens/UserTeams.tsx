@@ -32,14 +32,15 @@ export const UserTeams = () => {
             <Navbar iconNumber={user?.iconNumber ?? 0} invitationNumber={2} />
             <Content className="teams-content">
                 <div className="teams-text">
-                    <h2>Here is an overview of <span className="highlight-text">{user?.username}'s</span> teams</h2>
                     <Button
                         type="primary"
-                        className="create-btn"
+                        className="create-btn create-btn-position"
                         onClick={() => setCreateTeamModalOpen(true)}
                     >
                         Create Team
                     </Button>
+                    <h2>Here is an overview of <span className="highlight-text">{user?.username}'s</span> teams</h2>
+
                 </div>
                 {isLoading ? (
                     <div className="loading-spinner">
