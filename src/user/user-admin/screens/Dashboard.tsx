@@ -14,12 +14,24 @@ import {CreateProjectModal} from "../../../project/components/CreateProjectModal
 
 export const Dashboard = () => {
     const user = useSelector((state: RootState) => state.loggedUser.user);
-    //TODO - make this method paginated
-    const { data: projects = [] , isLoading } = useGetProjectsForUserQuery(user ? user.id : skipToken);
     const [createProjectModalOpen, setCreateProjectModalOpen] = useState<boolean>(false);
-    const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(5);
+    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [pageSize, setPageSize] = useState<number>(5);
+    const { data , isLoading } = useGetProjectsForUserQuery(
+        user ?
+            {
+                id: user.id,
+                page: {pageNumber: pageNumber - 1, pageSize}
+            }
+            : skipToken);
+    const projects = data ? data.content : [];
+    const page = data ? data.page : undefined;
 
+    const handleAfterDeleteProject = () => {
+        if(projects.length === 1 && pageNumber > 1) {
+            setPageNumber(pageNumber - 1);
+        }
+    }
 
     return (
         <Layout>
@@ -50,16 +62,16 @@ export const Dashboard = () => {
                             <Col flex="40px">Action</Col>
                         </Row>
                         {projects.map((project: ProjectSummaryDto) => (
-                            <ProjectSummary key={project.id} project={project} />
+                            <ProjectSummary key={project.id} project={project} handleAfterDeleteProject = {handleAfterDeleteProject}/>
                         ))}
 
                         <Pagination
                             className="pagination-buttons"
-                            current={page}
+                            current={pageNumber}
                             pageSize={pageSize}
-                            total={projects.length}
+                            total={page ? page.totalElements : 0}
                             onChange={(newPage, newPageSize) => {
-                                setPage(newPage);
+                                setPageNumber(newPage);
                                 setPageSize(newPageSize);
                             }}
                         />

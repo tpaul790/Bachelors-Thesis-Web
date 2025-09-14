@@ -3,6 +3,7 @@ import type {UserDto, UserUpdateDto} from "../dto/UserDtos.ts";
 import {projectUrl, teamUrl, userUrl} from "../../utils/constants.ts";
 import type { ProjectSummaryDto} from "../../project/dto/ProjectDto.ts";
 import type {TeamDto, TeamSummaryDto} from "../../team/dto/TeamDto.ts";
+import type {PageRequest, PageResponse} from "../../utils/pagination/PaginationDto.ts";
 
 const userQueryApi = apiSlice.injectEndpoints({
     endpoints: builder => ({
@@ -13,6 +14,7 @@ const userQueryApi = apiSlice.injectEndpoints({
             }),
             providesTags: ["users"]
         }),
+
         updateUser: builder.mutation<UserDto, UserUpdateDto>({
             query: (request: UserUpdateDto) =>({
                 url: `${userUrl}/user-${request.id}`,
@@ -21,13 +23,18 @@ const userQueryApi = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ["users"]
         }),
-        getProjectsForUser: builder.query<ProjectSummaryDto[], number>({
-            query: (id: number) => ({
-                url: `${userUrl}/${id}/${projectUrl}`,
+
+        getProjectsForUser: builder.query<
+            PageResponse<ProjectSummaryDto>,
+            { id: number, page: PageRequest }
+        >({
+            query: ({id, page : {pageNumber, pageSize}}) => ({
+                url: `${userUrl}/${id}/${projectUrl}?pageNumber=${pageNumber}&pageSize=${pageSize}`,
                 method: "GET",
             }),
             providesTags: ["projects"]
         }),
+
         getTeamsForUser: builder.query<TeamDto[], number>({
             query: (id: number) => ({
                 url: `${userUrl}/${id}/${teamUrl}`,
@@ -35,9 +42,13 @@ const userQueryApi = apiSlice.injectEndpoints({
             }),
             providesTags: ["teams"]
         }),
-        getTeamsSummaryForUser: builder.query<TeamSummaryDto[], number>({
-            query: (id: number) => ({
-                url: `${userUrl}/${id}/${teamUrl}-summary`,
+
+        getTeamsSummaryForUser: builder.query<
+            PageResponse<TeamSummaryDto>,
+            {id: number, page: PageRequest}>
+        ({
+            query: ({id, page:{pageNumber, pageSize}}) => ({
+                url: `${userUrl}/${id}/${teamUrl}-summary?pageNumber=${pageNumber}&pageSize=${pageSize}`,
                 method: "GET"
             }),
             providesTags: ["teams_summary"]

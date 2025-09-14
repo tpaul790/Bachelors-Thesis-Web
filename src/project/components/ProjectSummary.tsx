@@ -15,11 +15,12 @@ const MAX_VISIBLE_PARTICIPANTS = 4;
 
 interface IOwnProps{
     project: ProjectSummaryDto;
+    handleAfterDeleteProject: () => void;
 }
 
 export const ProjectSummary = (props: IOwnProps) => {
     const [deleteProject] = useDeleteProjectMutation();
-    const {project} = props;
+    const {project, handleAfterDeleteProject} = props;
     const {
         id: projectId,
         name,
@@ -36,6 +37,7 @@ export const ProjectSummary = (props: IOwnProps) => {
     const handleDeleteProject = async (id: number) => {
         try {
             await deleteProject(id).unwrap();
+            handleAfterDeleteProject();
             notification.success({
                 message: "Successfully Delete",
                 description: "Project successfully removed",

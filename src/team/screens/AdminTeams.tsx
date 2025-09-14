@@ -10,10 +10,17 @@ import {useFindAllTeamsQuery} from "../api/teamQueryApi.ts";
 
 export const AdminTeams = () => {
     const user = useSelector((state: RootState) => state.loggedUser.user);
-    //TODO - make this method paginated
-    const { data: teams, isLoading } = useFindAllTeamsQuery();
-    const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(4);
+    const [pageNumber, setPageNumber] = useState<number>(1);
+    const [pageSize, setPageSize] = useState<number>(4);
+    const { data: data, isLoading } = useFindAllTeamsQuery({pageNumber: pageNumber - 1, pageSize});
+    const teams = data ? data.content : [];
+    const page = data ? data.page : undefined;
+
+    const handleAfterDeleteTeam = () => {
+        if(teams.length === 1 && pageNumber > 1) {
+            setPageNumber(pageNumber - 1);
+        }
+    }
 
     return(
         <Layout>
@@ -28,14 +35,14 @@ export const AdminTeams = () => {
                     </div>) : (
                     <div className="teams-list">
                         <TeamsHeader/>
-                        {teams?.map(team => <TeamSummary key={team.id} userId={user ? user.id : 0} team={team} />)}
+                        {teams?.map(team => <TeamSummary key={team.id} userId={user ? user.id : 0} team={team} handleAfterDeleteTeam = {handleAfterDeleteTeam} />)}
                         <Pagination
                             className="pagination-buttons"
-                            current={page}
+                            current={pageNumber}
                             pageSize={pageSize}
-                            total={teams ? teams.length : 0}
+                            total={page ? page.totalElements : 0}
                             onChange={(newPage, newPageSize) => {
-                                setPage(newPage);
+                                setPageNumber(newPage);
                                 setPageSize(newPageSize);
                             }}
                         />
