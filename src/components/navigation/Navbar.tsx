@@ -132,7 +132,7 @@ const Navbar = (props: IOwnProps) => {
                                 Dashboard
                             </Link>
                             <Link
-                                to="/user-teams"
+                                to="/teams"
                                 className={location.pathname === "/teams" ? "active-link" : ""}
                             >
                                 Teams
