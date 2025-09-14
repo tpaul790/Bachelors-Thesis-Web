@@ -18,10 +18,11 @@ const MAX_VISIBLE_MEMBERS= 4;
 interface IOwnProps {
     userId: number;
     team: TeamSummaryDto;
+    handleAfterDeleteTeam: () => void;
 }
 
 export const TeamSummary = (props: IOwnProps) => {
-    const { userId, team } = props;
+    const { userId, team, handleAfterDeleteTeam } = props;
     const { id: teamid, name: teamName, members, createdAt}  = team;
 
     const icons = members.
@@ -40,6 +41,7 @@ export const TeamSummary = (props: IOwnProps) => {
 
     const handleDeleteTeam = async () => {
         await removeTeam(teamid, deleteTeam);
+        handleAfterDeleteTeam();
     }
 
     const handleLeaveTeam = async () => {
