@@ -28,8 +28,8 @@ export const AdminProjects = () => {
     return (
         <Layout>
             <Navbar iconNumber={user?.iconNumber ?? 0} invitationNumber={2} />
-            <Content className="dashboard-content">
-                <div className="dashboard-text">
+            <Content className="content">
+                <div className="text-container">
                     <h2>Here is an overview of <span className="highlight-text">all existing projects</span></h2>
                 </div>
 

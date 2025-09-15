@@ -24,6 +24,7 @@ export interface UserUpdateDto {
     email?: string;
     username?: string;
     iconNumber?: number;
+    userRole?: UserRole;
 }
 
 export interface UserSummaryDto{

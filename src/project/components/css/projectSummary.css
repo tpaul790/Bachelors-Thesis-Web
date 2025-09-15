@@ -11,15 +11,12 @@
 .icon-action {
     color: #fff;
     font-size: 18px;
-}
-
-.col-action {
     transform: scale(1.5);
     transition: transform 0.3s ease;
     cursor: pointer;
 }
 
-.col-action:hover {
+.icon-action:hover {
     transform: scale(1.8);
 }
 
