@@ -40,3 +40,25 @@
     display: flex;
     align-items: center;
 }
+
+.project-description{
+    font-weight: 400;
+    font-size: 17px;
+}
+
+.summary-card.expanded-card {
+    transform: scale(1.02);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.members-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.member-col {
+    flex: 1 1 calc(25% - 16px);
+    max-width: calc(25% - 16px);
+    box-sizing: border-box;
+}
