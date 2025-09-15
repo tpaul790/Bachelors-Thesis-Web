@@ -37,8 +37,8 @@ export const Dashboard = () => {
     return (
         <Layout>
             <Navbar iconNumber={user?.iconNumber ?? 0} invitationNumber={2} />
-            <Content className="dashboard-content">
-                <div className="dashboard-text">
+            <Content className="content">
+                <div className="text-container">
                     <Button
                         type="primary"
                         className="create-btn create-btn-position"

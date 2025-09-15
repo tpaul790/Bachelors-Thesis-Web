@@ -1,0 +1,57 @@
+.user-list-table{
+    width: 80%;
+    border-radius: 10px;
+    background-color: rgba(240, 243, 255, 0.08);
+}
+
+.user-list-table .ant-table {
+    background-color: transparent;
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.user-list-table .ant-table-thead > tr > th {
+    background-color: rgba(232, 235, 248, 0.1);
+    color: #ffffff;
+    font-size: 17px;
+}
+
+.user-list-table .icon-action {
+    color: #ffffff;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.user-list-table .ant-table-thead > tr > th {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+    font-size: 17px;
+}
+
+/* General table cells */
+.user-list-table .ant-table-tbody > tr > td {
+    background-color: transparent !important;
+    color: #ffffff !important;
+}
+
+/* Hover effect for rows */
+.user-list-table .ant-table-tbody > tr.ant-table-row:hover > td {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Cells containing Popconfirm / icons */
+.user-list-table .ant-table-tbody > tr.ant-table-row:hover > td .ant-popover-inner,
+.user-list-table .ant-table-tbody > tr.ant-table-row:hover > td .ant-popover-inner-content {
+    background-color: transparent !important;
+}
+
+/* Prevent focus / active from changing background */
+.user-list-table .ant-table-tbody > tr > td:focus,
+.user-list-table .ant-table-tbody > tr > td:active {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Optional: smooth transition */
+.user-list-table .ant-table-tbody > tr > td {
+    transition: background-color 0.2s ease;
+}

@@ -1,4 +1,4 @@
-import {Avatar, Button, Input, Layout, message, Modal, Spin, Tag} from "antd";
+import {Avatar, Button, Input, Layout, Modal, notification, Spin, Tag} from "antd";
 import Descriptions from "antd/es/descriptions";
 import { EditOutlined, SaveOutlined, UserOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
@@ -51,12 +51,24 @@ export const Profile = () => {
         try {
             const response: UserDto = await updateUser(updatedUser).unwrap();
             dispatch(setLoggedUser(response));
-            message.success(Feedback.SUCCESS);
+            notification.success({
+                message: "Success",
+                description: Feedback.SUCCESS,
+                placement: "top",
+                duration: 3,
+            })
             setIsEditing(false);
             setAvatarHighlight(true);
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (err) {
-            message.error(Feedback.ERROR);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (err: any) {
+            const errorMessage =
+                err?.data?.error || err?.message || "An unknown error occurred";
+            notification.error({
+                message: "Update User Error",
+                description: errorMessage,
+                placement: "top",
+                duration: 3,
+            })
         }
     };
     return (

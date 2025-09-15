@@ -9,6 +9,7 @@ import {UserRole} from "./user/dto/UserDtos.ts";
 import {UserTeams} from "./team/screens/UserTeams.tsx";
 import {AdminTeams} from "./team/screens/AdminTeams.tsx";
 import {AdminProjects} from "./project/screens/AdminProjects.tsx";
+import {UserList} from "./user/admin/screens/UserList.tsx";
 
 function App() {
 
@@ -52,6 +53,13 @@ function App() {
                     <ProtectedRoute
                         userRoles={[UserRole.ADMIN]}
                         child={<AdminProjects/>}
+                    />}
+                />
+
+                <Route path="/users" element={
+                    <ProtectedRoute
+                        userRoles={[UserRole.ADMIN]}
+                        child={<UserList/>}
                     />}
                 />
             </Routes>

@@ -15,9 +15,34 @@ const userQueryApi = apiSlice.injectEndpoints({
             providesTags: ["users"]
         }),
 
+        deleteUser: builder.mutation<void, number>({
+           query: (id: number) => ({
+               url: `${userUrl}/${id}`,
+               method: "DELETE"
+           }),
+            invalidatesTags: ["users"]
+        }),
+
+        getAllUsers: builder.query<UserDto[], void>({
+           query: () => ({
+               url: `${userUrl}`,
+               method: "GET"
+           }),
+            providesTags: ["users"]
+        }),
+
         updateUser: builder.mutation<UserDto, UserUpdateDto>({
             query: (request: UserUpdateDto) =>({
                 url: `${userUrl}/user-${request.id}`,
+                method: "PUT",
+                body: request
+            }),
+            invalidatesTags: ["users"]
+        }),
+
+        updateAdmin: builder.mutation<UserDto, UserUpdateDto>({
+            query: (request: UserUpdateDto) =>({
+                url: `${userUrl}/admin-${request.id}`,
                 method: "PUT",
                 body: request
             }),
@@ -58,6 +83,9 @@ const userQueryApi = apiSlice.injectEndpoints({
 
 export const {
     useUpdateUserMutation,
+    useUpdateAdminMutation,
+    useDeleteUserMutation,
+    useGetAllUsersQuery,
     useLazyGetUserByIdQuery,
     useGetProjectsForUserQuery,
     useGetTeamsForUserQuery,

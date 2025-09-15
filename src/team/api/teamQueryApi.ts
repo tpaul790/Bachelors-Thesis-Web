@@ -19,7 +19,7 @@ const teamQueryApi = apiSlice.injectEndpoints({
                 url: `${teamUrl}/${id}`,
                 method: "DELETE"
             }),
-            invalidatesTags: ["teams_summary"]
+            invalidatesTags: ["teams_summary", "projects"]
         }),
 
         findAllTeams: builder.query<
