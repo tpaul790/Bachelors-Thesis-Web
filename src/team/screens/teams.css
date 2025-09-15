@@ -30,12 +30,3 @@
     justify-content: center;
     gap: 10px;
 }
-
-.teams-header-row {
-    background-color: transparent;
-    color: white;
-    border-bottom: 1px solid #ddd;
-    font-weight: 600;
-    padding: 0 16px;
-    margin-bottom: 10px;
-}

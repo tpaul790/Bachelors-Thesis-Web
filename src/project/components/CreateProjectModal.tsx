@@ -7,7 +7,7 @@ import {useDeleteTeamMutation, useSaveTeamMutation} from "../../team/api/teamQue
 import {useSaveMemberMutation} from "../../member/api/memberQueryApi.ts";
 import {useGetTeamsForUserQuery} from "../../user/api/userQueryApi.ts";
 import {skipToken} from "@reduxjs/toolkit/query";
-import "./createProjectModal.css"
+import "./css/createProjectModal.css"
 import {createTeam, removeTeam} from "../../team/utils/Functions.ts";
 import {addMember} from "../../member/utils/Functions.ts";
 

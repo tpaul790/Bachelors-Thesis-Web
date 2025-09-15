@@ -1,30 +1,21 @@
-import {Button, Layout, Pagination, Spin} from "antd";
-import Navbar from "../../../components/navigation/Navbar.tsx";
+import Navbar from "../../components/navigation/Navbar.tsx";
+import { Layout, Pagination, Spin} from "antd";
 import {useSelector} from "react-redux";
-import type {RootState} from "../../../api/store.ts";
-import type { ProjectSummaryDto} from "../../../project/dto/ProjectDto.ts";
-import { ProjectSummary } from "../../../project/components/ProjectSummary.tsx";
-import "./dashboard.css";
-import "../../../App.css"
-import {skipToken} from "@reduxjs/toolkit/query";
-import {useGetProjectsForUserQuery} from "../../api/userQueryApi.ts";
-import {Content} from "antd/es/layout/layout";
+import type {RootState} from "../../api/store.ts";
 import {useState} from "react";
-import {CreateProjectModal} from "../../../project/components/CreateProjectModal.tsx";
-import {ProjectsHeader} from "../../../project/components/ProjectsHeader.tsx";
+import {Content} from "antd/es/layout/layout";
+import {ProjectsHeader} from "../components/ProjectsHeader.tsx";
+import type {ProjectSummaryDto} from "../dto/ProjectDto.ts";
+import {ProjectSummary} from "../components/ProjectSummary.tsx";
+import {CreateProjectModal} from "../components/CreateProjectModal.tsx";
+import {useGetProjectsQuery} from "../api/projectQueryApi.ts";
 
-export const Dashboard = () => {
+export const AdminProjects = () => {
     const user = useSelector((state: RootState) => state.loggedUser.user);
     const [createProjectModalOpen, setCreateProjectModalOpen] = useState<boolean>(false);
     const [pageNumber, setPageNumber] = useState<number>(1);
-    const [pageSize, setPageSize] = useState<number>(5);
-    const { data , isLoading } = useGetProjectsForUserQuery(
-        user ?
-            {
-                id: user.id,
-                page: {pageNumber: pageNumber - 1, pageSize}
-            }
-            : skipToken);
+    const [pageSize, setPageSize] = useState<number>(4);
+    const { data , isLoading } = useGetProjectsQuery({pageNumber: pageNumber - 1, pageSize});
     const projects = data ? data.content : [];
     const page = data ? data.page : undefined;
 
@@ -39,14 +30,7 @@ export const Dashboard = () => {
             <Navbar iconNumber={user?.iconNumber ?? 0} invitationNumber={2} />
             <Content className="dashboard-content">
                 <div className="dashboard-text">
-                    <Button
-                        type="primary"
-                        className="create-btn create-btn-position"
-                        onClick={() => setCreateProjectModalOpen(true)}
-                    >
-                        Create Project
-                    </Button>
-                    <h2>Welcome back, <span className="highlight-text">{user?.username}</span></h2>
+                    <h2>Here is an overview of <span className="highlight-text">all existing projects</span></h2>
                 </div>
 
                 {isLoading ? (
@@ -83,4 +67,4 @@ export const Dashboard = () => {
             />
         </Layout>
     )
-};
+}

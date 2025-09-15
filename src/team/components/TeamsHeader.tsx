@@ -2,7 +2,7 @@ import {Col, Row} from "antd";
 
 export const TeamsHeader = () => {
     return (
-        <Row align="middle" className="teams-header-row">
+        <Row align="middle" className="header-row">
             <Col flex="220px">Team Manager</Col>
             <Col flex="180px">Created</Col>
             <Col flex="150px">Team Name</Col>

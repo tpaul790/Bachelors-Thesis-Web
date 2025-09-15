@@ -21,5 +21,5 @@ export interface TeamProjectSummaryDto{
     id: number;
     name: string;
     createdAt: number;
-    icons: number[];
+    members: MemberSummaryDto[];
 }

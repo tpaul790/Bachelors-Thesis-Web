@@ -8,8 +8,11 @@ import {
 import {getDaysAgo} from "../../utils/functions/date.ts";
 import {getAvatarByIconNumber} from "../../utils/functions/user.ts";
 const { Title, Text } = Typography;
-import "./projectSummary.css"
+import "./css/projectSummary.css"
 import {useDeleteProjectMutation} from "../api/projectQueryApi.ts";
+import {MemberRole} from "../../member/dto/MemberDto.ts";
+import {useState} from "react";
+import {ExtraProjectSummaryContent} from "./ExtraProjectSummaryContent.tsx";
 
 const MAX_VISIBLE_PARTICIPANTS = 4;
 
@@ -20,6 +23,7 @@ interface IOwnProps{
 
 export const ProjectSummary = (props: IOwnProps) => {
     const [deleteProject] = useDeleteProjectMutation();
+    const [expanded, setExpanded] = useState<boolean>(false);
     const {project, handleAfterDeleteProject} = props;
     const {
         id: projectId,
@@ -27,7 +31,13 @@ export const ProjectSummary = (props: IOwnProps) => {
         createdAt,
         team
     } = project;
-    const { icons, name: teamName}  = team;
+    const {
+        name: teamName,
+        members
+    } = team;
+    const icons = members
+        .map(m => m.user.iconNumber);
+    const manager = members.find(m => m.role === MemberRole.MANAGER);
     const hasIcons = icons !== undefined;
     const visibleParticipants = hasIcons
         ? icons.slice(0, MAX_VISIBLE_PARTICIPANTS)
@@ -57,18 +67,41 @@ export const ProjectSummary = (props: IOwnProps) => {
         }
     };
 
+    const isProjectsPage =() => {
+        return location.pathname === "/projects";
+    }
+
     return (
         <>
             <Content className="summary-content">
-                <Card className="summary-card hoverable-card">
+                <Card
+                    className={`summary-card ${expanded ? "expanded-card" : ""} ${isProjectsPage() ? "clickable-card" : ""} ${!isProjectsPage() ? "hoverable-card" : ""}`}
+                    onClick={() => setExpanded(!expanded)}
+                >
                     <Row align="middle" className="summary-row">
-                        <Col className="col-session-name" flex="180px">
+                        <Col className="col-manager-avatar" flex="220px">
+                            <Avatar
+                                className="manager-avatar"
+                                size="large"
+                                src={getAvatarByIconNumber(manager?.user.iconNumber ?? 0)}
+                                style={{
+                                    backgroundColor: getAvatarByIconNumber(manager?.user.iconNumber ?? 0)
+                                        ? undefined
+                                        : "#7265e6",
+                                }}
+                            ></Avatar>
+                            <div className="project-manager-names">
+                                <span className="summary-text">{manager?.user.firstName}</span>
+                                <span className="summary-text">{manager?.user.lastName}</span>
+                            </div>
+                        </Col>
+                        <Col flex="140px">
                             <Title level={5} className="summary-title">
                                 {name}
                             </Title>
                         </Col>
 
-                        <Col className="col-date" flex="180px">
+                        <Col flex="170px">
                             <Space size="small">
                                 <CalendarOutlined className="icon-calendar" />
                                 <Text className="summary-text">
@@ -77,13 +110,13 @@ export const ProjectSummary = (props: IOwnProps) => {
                             </Space>
                         </Col>
 
-                        <Col className="col-session-name" flex="150px">
+                        <Col flex="140px">
                             <Title level={5} className="summary-title">
                                 {teamName}
                             </Title>
                         </Col>
 
-                        <Col className="col-participants" flex="200px">
+                        <Col flex="200px">
                             <Content className="avatar-group">
                                 {visibleParticipants.map((icon, index) => (
                                     <Avatar
@@ -117,6 +150,7 @@ export const ProjectSummary = (props: IOwnProps) => {
                             </Col>
                         </Popconfirm>
                     </Row>
+                    {expanded && isProjectsPage() && <ExtraProjectSummaryContent project={project}/>}
                 </Card>
             </Content>
         </>

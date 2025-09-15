@@ -92,6 +92,10 @@
 
 /*Card*/
 .summary-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border-radius: 40px;
     border: 1px solid rgba(240, 243, 255, 0.1);
     background: rgba(240, 243, 255, 0.08);
@@ -103,6 +107,10 @@
     width: 100%;
 }
 
+.clickable-card {
+    cursor: pointer;
+}
+
 .hoverable-card:hover{
     cursor: pointer;
     box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.67);
@@ -112,8 +120,8 @@
 .summary-row{
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
 }
 
 .summary-title {
@@ -132,6 +140,12 @@
     font-size: 18px !important;
 }
 
+.summary-small-text{
+    color: white !important;
+    font-weight: 400 !important;
+    font-size: 17px !important;
+}
+
 
 
 /*Pagination*/
@@ -148,4 +162,15 @@
 
 .pagination-buttons span.anticon{
     color: white !important;
+}
+
+
+/*Header*/
+.header-row {
+    background-color: transparent;
+    color: white;
+    border-bottom: 1px solid #ddd;
+    font-weight: 600;
+    padding: 0 16px;
+    margin-bottom: 10px;
 }
